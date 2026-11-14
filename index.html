@@ -4,259 +4,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>VEYORA | Smart City Community Platform</title>
-<meta name="description" content="VEYORA connects citizens with smarter cities. Report road, garbage, water and street light problems to build a better tomorrow.">
-<meta name="keywords" content="VEYORA, smart city, civic complaints, report city problems, urban development">
-<meta name="theme-color" content="#08172b">
+<meta name="theme-color" content="#071a35">
+<meta name="description" content="VEYORA - Your City. Your Voice. Your Future. Report civic problems and track complaints.">
+<title>VEYORA | Smart City Platform</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: Arial, sans-serif;
-  background: #08172b;
-  color: #eaf2ff;
-  line-height: 1.6;
-}
-
-header {
-  background: #0c1e35;
-  padding: 15px 7%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #263b56;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 25px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  color: #e4ebf5;
-}
-
-.logo img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-nav {
-  display: flex;
-  gap: 23px;
-}
-
-nav a {
-  color: #d4deeb;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-nav a:hover { color: #56baff; }
-
-.hero {
-  padding: 100px 7%;
-  background:
-    radial-gradient(ellipse at 85% 20%, #164b77 0%, transparent 45%),
-    linear-gradient(120deg, #0b1c32, #102e4e);
-}
-
-.hero-content { max-width: 750px; }
-
-.tag {
-  display: inline-block;
-  color: #76caff;
-  border: 1px solid #3778a8;
-  padding: 7px 15px;
-  border-radius: 30px;
-  font-size: 12px;
-  letter-spacing: 2px;
-  margin-bottom: 22px;
-}
-
-.hero h1 {
-  font-size: clamp(36px, 6vw, 60px);
-  line-height: 1.15;
-  margin-bottom: 22px;
-  color: white;
-}
-
-.hero h1 span { color: #69bfff; }
-
-.hero p {
-  font-size: 17px;
-  color: #c1cede;
-  max-width: 600px;
-}
-
-.btn {
-  display: inline-block;
-  background: linear-gradient(120deg, #58b8ff, #b5d7f5);
-  color: #08172b;
-  padding: 14px 25px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 28px;
-  transition: .3s;
-}
-
-.btn:hover { transform: translateY(-3px); }
-
-section { padding: 75px 7%; }
-
-.section-heading {
-  text-align: center;
-  margin-bottom: 38px;
-}
-
-.section-heading h2 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: white;
-}
-
-.section-heading p { color: #a9bbd0; }
-
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 22px;
-}
-
-.card {
-  background: #10243c;
-  padding: 28px;
-  border: 1px solid #263f5c;
-  border-radius: 15px;
-  transition: .3s;
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  border-color: #65baff;
-}
-
-.icon { font-size: 35px; }
-
-.card h3 {
-  margin: 15px 0 8px;
-  color: #e9f3ff;
-}
-
-.card p { color: #a9bbd0; }
-
-.report-section {
-  background: #0d2037;
-}
-
-.form-box {
-  max-width: 650px;
-  margin: auto;
-  background: #122943;
-  padding: 30px;
-  border: 1px solid #34516f;
-  border-radius: 16px;
-}
-
-label {
-  display: block;
-  margin: 14px 0 7px;
-  color: #dce9f7;
-}
-
-input, select, textarea {
-  width: 100%;
-  padding: 13px;
-  border: 1px solid #3a5673;
-  background: #091a2e;
-  color: white;
-  border-radius: 7px;
-  font-size: 15px;
-}
-
-textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
-input:focus, select:focus, textarea:focus {
-  outline: 2px solid #56baff;
-}
-
-.submit-btn {
-  width: 100%;
-  background: linear-gradient(120deg, #58b8ff, #b5d7f5);
-  color: #08172b;
-  border: none;
-  padding: 15px;
-  border-radius: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  margin-top: 22px;
-  cursor: pointer;
-}
-
-#message {
-  margin-top: 15px;
-  color: #7de5bd;
-  text-align: center;
-}
-
-.about {
-  text-align: center;
-  max-width: 850px;
-  margin: auto;
-}
-
-.about p {
-  color: #b3c4d8;
-  font-size: 16px;
-}
-
-footer {
-  background: #050f1e;
-  padding: 30px 7%;
-  text-align: center;
-  border-top: 1px solid #263b56;
-  color: #9eafc3;
-}
-
-footer strong { color: #72c3ff; }
-
-@media(max-width:600px) {
-  header {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  nav {
-    gap: 15px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  nav a { font-size: 13px; }
-
-  .hero { padding: 75px 7%; }
-
-  section { padding: 55px 7%; }
-
-  .form-box { padding: 20px; }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#f4f7fb;color:#14233d}
+header{background:#071a35;color:white;padding:16px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:48px;height:48px;object-fit:contain}
+.brand h2{letter-spacing:3px;color:#dce8ff}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:white;text-decoration:none;font-size:14px}
+nav a:hover{color:#76b5ff}
+button{border:0;border-radius:8px;padding:12px 18px;background:#1769d2;color:white;font-weight:bold;cursor:pointer}
+button:hover{background:#0d4fa8}
+.secondary{background:#e5edf8;color:#12345b}
+.hero{padding:75px 8%;background:linear-gradient(120deg,#071a35,#123e70);color:white;text-align:center}
+.hero h1{font-size:clamp(34px,7vw,58px);margin-bottom:18px}
+.hero p{font-size:18px;color:#d9e7fa;margin-bottom:25px}
+.hero .tagline{color:#9fcaff;letter-spacing:2px;margin-bottom:14px}
+section{padding:55px 7%}
+.heading{text-align:center;font-size:30px;margin-bottom:12px;color:#102c50}
+.sub{text-align:center;color:#65748b;margin-bottom:30px}
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
+.feature,.panel{background:white;padding:24px;border-radius:15px;box-shadow:0 5px 22px #14233d12}
+.feature h3{margin:12px 0;color:#123d70}
+.feature p{color:#65748b;line-height:1.5}
+.symbol{font-size:34px}
+.formbox{max-width:700px;margin:auto;background:white;padding:25px;border-radius:16px;box-shadow:0 5px 25px #14233d14}
+label{display:block;font-weight:bold;margin:14px 0 7px}
+input,select,textarea{width:100%;padding:13px;border:1px solid #ccd7e5;border-radius:8px;font-size:15px;background:white}
+textarea{min-height:100px;resize:vertical}
+.formbox button{margin-top:17px;width:100%}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.result{margin-top:18px;padding:15px;background:#eaf5ff;border-radius:10px;display:none;overflow-wrap:anywhere}
+.status{display:inline-block;padding:5px 10px;border-radius:20px;background:#fff1ce;color:#805400;font-size:12px;font-weight:bold}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.complaint{background:white;padding:17px;border-radius:12px;margin:12px 0;box-shadow:0 3px 12px #14233d10}
+.complaint p{margin:7px 0;color:#58677d}
+.complaint img{max-width:150px;max-height:120px;object-fit:cover;border-radius:8px;margin-top:8px}
+#mapFrame{width:100%;height:300px;border:0;border-radius:12px;margin-top:15px}
+footer{background:#071a35;color:#c9d9ee;text-align:center;padding:28px}
+footer strong{color:white;letter-spacing:3px}
+.hidden{display:none!important}
+.small{font-size:13px;color:#68778c;line-height:1.5}
+@media(max-width:600px){
+ header{padding:14px 5%}
+ nav{gap:12px}
+ nav a{font-size:12px}
+ section{padding:40px 5%}
+ .grid2{grid-template-columns:1fr}
+ .hero{padding:60px 5%}
 }
 </style>
 </head>
@@ -264,149 +64,299 @@ footer strong { color: #72c3ff; }
 <body>
 
 <header>
-  <div class="logo">
-    <img src="Veyora-logo.png" alt="VEYORA Logo">
-    <span>VEYORA</span>
-  </div>
-
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#features">Features</a>
-    <a href="#report">Report</a>
-    <a href="#about">About</a>
-  </nav>
+ <div class="brand">
+  <img src="Veyora-logo.png" alt="VEYORA Logo">
+  <h2>VEYORA</h2>
+ </div>
+ <nav>
+  <a href="#home">Home</a>
+  <a href="#features">Features</a>
+  <a href="#report">Report</a>
+  <a href="#track">Track</a>
+  <a href="#admin">Admin</a>
+ </nav>
 </header>
 
 <main>
-
-<div class="hero" id="home">
-  <div class="hero-content">
-    <div class="tag">SMART CITY • SMART FUTURE</div>
-
-    <h1>Your City.<br>
-    Your <span>Voice.</span><br>
-    Your Future.</h1>
-
-    <p>
-      A smarter way to report civic problems.
-      Raise your voice, share local issues and
-      help build cleaner, safer and better cities.
-    </p>
-
-    <a href="#report" class="btn">Report a Problem →</a>
-  </div>
-</div>
-
-<section id="features">
-  <div class="section-heading">
-    <h2>What Can You Report?</h2>
-    <p>Your small report can make a big difference.</p>
-  </div>
-
-  <div class="cards">
-
-    <div class="card">
-      <div class="icon">🛣️</div>
-      <h3>Road Problems</h3>
-      <p>Report potholes, damaged roads and other road issues.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🗑️</div>
-      <h3>Garbage Issues</h3>
-      <p>Help keep your neighbourhood clean and healthy.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">💡</div>
-      <h3>Street Lights</h3>
-      <p>Report damaged street lights and dark public areas.</p>
-    </div>
-
-    <div class="card">
-      <div class="icon">🚰</div>
-      <h3>Water Problems</h3>
-      <p>Report water supply and leakage problems.</p>
-    </div>
-
-  </div>
+<section class="hero" id="home">
+ <p class="tagline">YOUR CITY. YOUR VOICE. YOUR FUTURE.</p>
+ <h1>Let's Build a Better City.</h1>
+ <p>Report civic problems, share your concerns and help make your city smarter.</p>
+ <a href="#report"><button>Report a Problem</button></a>
+ <a href="#track"><button class="secondary">Track Complaint</button></a>
 </section>
 
-<section class="report-section" id="report">
-  <div class="section-heading">
-    <h2>Report a Problem</h2>
-    <p>Help us make your city better.</p>
+<section id="features">
+ <h2 class="heading">Our Services</h2>
+ <p class="sub">Small reports can make a big difference.</p>
+ <div class="features">
+  <div class="feature"><div class="symbol">🛣️</div><h3>Road Problems</h3><p>Report damaged roads and potholes.</p></div>
+  <div class="feature"><div class="symbol">🗑️</div><h3>Garbage Issues</h3><p>Report garbage and sanitation problems.</p></div>
+  <div class="feature"><div class="symbol">💡</div><h3>Street Lights</h3><p>Report broken or non-working street lights.</p></div>
+  <div class="feature"><div class="symbol">🚰</div><h3>Water Problems</h3><p>Report water supply and leakage issues.</p></div>
+ </div>
+</section>
+
+<section id="account">
+ <h2 class="heading">User Account</h2>
+ <p class="sub">Demo account for this browser only</p>
+ <div class="formbox">
+  <div id="loggedOut">
+   <label>Email</label>
+   <input id="email" type="email" placeholder="Enter your email">
+   <label>Password</label>
+   <input id="password" type="password" placeholder="Create a password">
+   <div class="actions">
+    <button onclick="signup()">Sign Up</button>
+    <button class="secondary" onclick="login()">Login</button>
+   </div>
   </div>
-
-  <div class="form-box">
-    <form id="reportForm">
-
-      <label for="name">Your Name</label>
-      <input id="name" type="text"
-        placeholder="Enter your name" required>
-
-      <label for="category">Problem Category</label>
-      <select id="category" required>
-        <option value="">Choose problem</option>
-        <option>Road Problem</option>
-        <option>Garbage</option>
-        <option>Street Light</option>
-        <option>Water Problem</option>
-        <option>Other</option>
-      </select>
-
-      <label for="description">Describe the Problem</label>
-      <textarea id="description"
-        placeholder="Explain the issue..." required></textarea>
-
-      <label for="photo">Upload Photo (Optional)</label>
-      <input id="photo" type="file" accept="image/*">
-
-      <button type="submit" class="submit-btn">
-        Submit Report →
-      </button>
-
-      <p id="message" role="status"></p>
-    </form>
+  <div id="loggedIn" class="hidden">
+   <p id="welcome"></p>
+   <button class="secondary" onclick="logout()">Logout</button>
   </div>
+  <p class="small" style="margin-top:15px">Demo only: do not use a real or reused password. This is not secure authentication.</p>
+  <p id="accountMessage" class="result"></p>
+ </div>
+</section>
+
+<section id="report">
+ <h2 class="heading">Report a Problem</h2>
+ <p class="sub">Tell us what is happening in your area.</p>
+ <div class="formbox">
+  <form id="reportForm">
+   <div class="grid2">
+    <div><label>Your Name</label><input id="person" required placeholder="Enter your name"></div>
+    <div><label>Mobile Number</label><input id="mobile" type="tel" required maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number"></div>
+   </div>
+   <label>Problem Category</label>
+   <select id="category" required>
+    <option value="">Select category</option>
+    <option>Road Problems</option>
+    <option>Garbage Issues</option>
+    <option>Street Lights</option>
+    <option>Water Problems</option>
+    <option>Drainage</option>
+    <option>Other</option>
+   </select>
+   <label>Location / Address</label>
+   <input id="address" required placeholder="Enter area, street or landmark">
+   <div class="actions">
+    <button type="button" class="secondary" onclick="getLocation()">📍 Use My Location</button>
+   </div>
+   <p id="locationText" class="small">Location is optional. Your browser will ask permission.</p>
+   <label>Describe the Problem</label>
+   <textarea id="description" required placeholder="Explain the problem..."></textarea>
+   <label>Upload Photo (optional)</label>
+   <input id="photo" type="file" accept="image/*">
+   <img id="preview" class="hidden" style="max-width:180px;margin-top:12px;border-radius:10px" alt="Photo preview">
+   <button type="submit">Submit Complaint</button>
+  </form>
+  <div id="reportResult" class="result"></div>
+ </div>
+</section>
+
+<section id="track">
+ <h2 class="heading">Track Your Complaint</h2>
+ <p class="sub">Enter your complaint ID to check its current demo status.</p>
+ <div class="formbox">
+  <label>Complaint Tracking ID</label>
+  <input id="trackingId" placeholder="Example: VEY-123456">
+  <button onclick="trackComplaint()">Track Now</button>
+  <div id="trackingResult" class="result"></div>
+ </div>
+</section>
+
+<section id="map">
+ <h2 class="heading">Complaint Location Map</h2>
+ <p class="sub">Use your location while submitting a complaint to preview it on the map.</p>
+ <div class="formbox">
+  <p id="mapMessage">No location selected yet.</p>
+  <iframe id="mapFrame" title="Map" class="hidden" loading="lazy"></iframe>
+ </div>
+</section>
+
+<section id="admin">
+ <h2 class="heading">Admin Dashboard</h2>
+ <p class="sub">Local demo dashboard: complaints saved in this browser.</p>
+ <div class="formbox">
+  <button onclick="showAdmin()">Open Dashboard</button>
+  <div id="adminPanel" class="hidden">
+   <h3 style="margin:20px 0">All Complaints</h3>
+   <div id="complaintList"></div>
+  </div>
+ </div>
 </section>
 
 <section id="about">
-  <div class="about">
-    <div class="section-heading">
-      <h2>About VEYORA</h2>
-    </div>
-
-    <p>
-      VEYORA is a community-driven smart city platform
-      designed to connect citizens with urban development.
-      Our mission is to encourage people to report local
-      problems and contribute towards cleaner, safer
-      and smarter communities.
-    </p>
-  </div>
+ <h2 class="heading">About VEYORA</h2>
+ <p class="sub">A citizen-focused concept for a cleaner, safer and smarter city.</p>
+ <div class="formbox">
+  <p style="line-height:1.8;color:#58677d;text-align:center">
+   VEYORA connects citizens with civic problem reporting.
+   Our goal is to make it easier to raise concerns and follow their progress.
+   Together, we can build a better tomorrow.
+  </p>
+ </div>
 </section>
-
 </main>
 
 <footer>
-  <strong>VEYORA</strong>
-  <p>Your City. Your Voice. Your Future.</p>
-  <p>© 2026 VEYORA. Built for a Better Tomorrow.</p>
+ <strong>VEYORA</strong>
+ <p style="margin-top:10px">Your City. Your Voice. Your Future.</p>
+ <p style="margin-top:8px;font-size:12px">© 2026 VEYORA. All rights reserved.</p>
 </footer>
 
 <script>
-document.getElementById("reportForm").addEventListener(
-  "submit", function(e) {
-    e.preventDefault();
+const getComplaints=()=>JSON.parse(localStorage.getItem("veyora_complaints")||"[]");
+const saveComplaints=data=>localStorage.setItem("veyora_complaints",JSON.stringify(data));
+let selectedLocation=null;
+let photoData="";
 
-    document.getElementById("message").textContent =
-      "Thank you! Your form demo is working. Database connection is required to save reports.";
+function showMessage(id,message){
+ const el=document.getElementById(id);
+ el.style.display="block";
+ el.textContent=message;
+}
 
-    this.reset();
+function signup(){
+ const email=document.getElementById("email").value.trim().toLowerCase();
+ const password=document.getElementById("password").value;
+ if(!email||password.length<6){showMessage("accountMessage","Enter a valid email and a password of at least 6 characters.");return}
+ localStorage.setItem("veyora_demo_user",JSON.stringify({email,password}));
+ showMessage("accountMessage","Demo account created. You can now log in.");
+}
+
+function login(){
+ const email=document.getElementById("email").value.trim().toLowerCase();
+ const password=document.getElementById("password").value;
+ const user=JSON.parse(localStorage.getItem("veyora_demo_user")||"null");
+ if(user&&user.email===email&&user.password===password){
+  localStorage.setItem("veyora_logged_in",email);
+  updateAccount();
+  showMessage("accountMessage","Logged in successfully.");
+ }else showMessage("accountMessage","Account not found or password is incorrect. Sign up first.");
+}
+
+function logout(){
+ localStorage.removeItem("veyora_logged_in");
+ updateAccount();
+}
+
+function updateAccount(){
+ const email=localStorage.getItem("veyora_logged_in");
+ document.getElementById("loggedOut").classList.toggle("hidden",!!email);
+ document.getElementById("loggedIn").classList.toggle("hidden",!email);
+ document.getElementById("welcome").textContent=email?"Logged in as: "+email:"";
+}
+updateAccount();
+
+document.getElementById("photo").addEventListener("change",function(){
+ const file=this.files[0];
+ if(!file){photoData="";return}
+ if(file.size>1500000){alert("Please choose an image smaller than 1.5 MB.");this.value="";return}
+ const reader=new FileReader();
+ reader.onload=e=>{
+  photoData=e.target.result;
+  const preview=document.getElementById("preview");
+  preview.src=photoData;
+  preview.classList.remove("hidden");
+ };
+ reader.readAsDataURL(file);
+});
+
+function getLocation(){
+ if(!navigator.geolocation){alert("Location is not supported by this browser.");return}
+ navigator.geolocation.getCurrentPosition(position=>{
+  selectedLocation={lat:position.coords.latitude,lon:position.coords.longitude};
+  document.getElementById("locationText").textContent="Location selected successfully.";
+  document.getElementById("mapMessage").textContent="Selected location: "+selectedLocation.lat.toFixed(5)+", "+selectedLocation.lon.toFixed(5);
+  const map=document.getElementById("mapFrame");
+  map.src="https://www.openstreetmap.org/export/embed.html?bbox="+(selectedLocation.lon-0.01)+"%2C"+(selectedLocation.lat-0.01)+"%2C"+(selectedLocation.lon+0.01)+"%2C"+(selectedLocation.lat+0.01)+"&layer=mapnik&marker="+selectedLocation.lat+"%2C"+selectedLocation.lon;
+  map.classList.remove("hidden");
+ },()=>alert("Location permission was not granted. You can enter the address manually."));
+}
+
+document.getElementById("reportForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ const complaint={
+  id:"VEY-"+Math.floor(100000+Math.random()*900000),
+  name:document.getElementById("person").value.trim(),
+  mobile:document.getElementById("mobile").value.trim(),
+  category:document.getElementById("category").value,
+  address:document.getElementById("address").value.trim(),
+  description:document.getElementById("description").value.trim(),
+  photo:photoData,
+  location:selectedLocation,
+  status:"Submitted",
+  date:new Date().toLocaleString()
+ };
+ const complaints=getComplaints();
+ complaints.push(complaint);
+ saveComplaints(complaints);
+ const result=document.getElementById("reportResult");
+ result.style.display="block";
+ result.innerHTML="<strong>Complaint submitted!</strong><br>Your Tracking ID: <strong>"+complaint.id+"</strong><br>Please save this ID to track your complaint.";
+ document.getElementById("trackingId").value=complaint.id;
+ this.reset();
+ photoData="";
+ selectedLocation=null;
+ document.getElementById("preview").classList.add("hidden");
+ document.getElementById("locationText").textContent="Location is optional. Your browser will ask permission.";
+});
+
+function trackComplaint(){
+ const id=document.getElementById("trackingId").value.trim().toUpperCase();
+ const complaint=getComplaints().find(c=>c.id===id);
+ const result=document.getElementById("trackingResult");
+ result.style.display="block";
+ if(!complaint){result.textContent="No complaint found. Please check your Tracking ID.";return}
+ result.innerHTML="<strong>"+complaint.id+"</strong><br>Category: "+complaint.category+"<br>Address: "+complaint.address+"<br>Status: <span class='status'>"+complaint.status+"</span><br>Date: "+complaint.date;
+}
+
+function showAdmin(){
+ const panel=document.getElementById("adminPanel");
+ panel.classList.toggle("hidden");
+ if(!panel.classList.contains("hidden"))renderAdmin();
+}
+
+function renderAdmin(){
+ const list=document.getElementById("complaintList");
+ const complaints=getComplaints();
+ if(!complaints.length){list.textContent="No complaints submitted in this browser yet.";return}
+ list.innerHTML="";
+ complaints.slice().reverse().forEach(c=>{
+  const item=document.createElement("div");
+  item.className="complaint";
+  const title=document.createElement("h3");
+  title.textContent=c.id+" — "+c.category;
+  const details=document.createElement("p");
+  details.textContent=c.name+" | "+c.address+" | "+c.date;
+  const desc=document.createElement("p");
+  desc.textContent=c.description;
+  const status=document.createElement("p");
+  status.textContent="Status: "+c.status;
+  const select=document.createElement("select");
+  ["Submitted","In Progress","Resolved"].forEach(s=>{
+   const option=document.createElement("option");
+   option.value=s;option.textContent=s;
+   if(c.status===s)option.selected=true;
+   select.appendChild(option);
+  });
+  select.addEventListener("change",()=>{
+   const all=getComplaints();
+   const target=all.find(x=>x.id===c.id);
+   if(target){target.status=select.value;saveComplaints(all);renderAdmin()}
+  });
+  item.append(title,details,desc,status,select);
+  if(c.photo){
+   const img=document.createElement("img");
+   img.src=c.photo;img.alt="Complaint photo";
+   item.appendChild(img);
   }
-);
+  list.appendChild(item);
+ });
+}
 </script>
-
 </body>
 </html>

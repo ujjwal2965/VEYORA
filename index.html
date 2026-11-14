@@ -50,4 +50,44 @@ footer{text-align:center;background:#102b46;color:white;padding:22px}
 </section>
 <footer>© 2026 CivicPulse | Built for a Better Tomorrow</footer>
 </body>
+
+<section id="report" style="padding:45px 7%;background:#eaf2f7">
+  <h2>📢 Report a Problem</h2>
+  <p style="margin-bottom:20px">Help us make your city better.</p>
+
+  <form id="reportForm" style="background:white;padding:22px;border-radius:14px;max-width:600px">
+    <label>Your Name</label>
+    <input required type="text" placeholder="Enter your name" style="width:100%;padding:12px;margin:10px 0 18px">
+
+    <label>Problem Category</label>
+    <select required style="width:100%;padding:12px;margin:10px 0 18px">
+      <option value="">Choose problem</option>
+      <option>Road Problem</option>
+      <option>Garbage</option>
+      <option>Street Light</option>
+      <option>Water Problem</option>
+      <option>Other</option>
+    </select>
+
+    <label>Describe the problem</label>
+    <textarea required placeholder="Explain the issue..." style="width:100%;padding:12px;margin:10px 0 18px"></textarea>
+
+    <label>Upload Photo</label>
+    <input type="file" accept="image/*" style="width:100%;margin:12px 0 20px">
+
+    <button type="submit" style="background:#176b78;color:white;padding:14px 22px;border:0;border-radius:8px;width:100%;font-size:16px">
+      Submit Report
+    </button>
+    <p id="message" style="margin-top:15px"></p>
+  </form>
+</section>
+
+<script>
+document.getElementById("reportForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  document.getElementById("message").textContent =
+  "Thank you! Your report form is working. Database connection will be added next.";
+  this.reset();
+});
+</script>
 </html>

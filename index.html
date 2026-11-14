@@ -4,90 +4,409 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CivicPulse | Smart City</title>
+
+<title>VEYORA | Smart City Community Platform</title>
+<meta name="description" content="VEYORA connects citizens with smarter cities. Report road, garbage, water and street light problems to build a better tomorrow.">
+<meta name="keywords" content="VEYORA, smart city, civic complaints, report city problems, urban development">
+<meta name="theme-color" content="#08172b">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#f4f7fb;color:#17243b}
-header{background:#102b46;color:white;padding:20px 7%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:25px;font-weight:bold;color:#52dfc0}
-nav a{color:white;text-decoration:none;margin-left:18px}
-.hero{padding:65px 7%;background:linear-gradient(120deg,#102b46,#176b78);color:white}
-.hero h1{font-size:42px;max-width:650px;margin-bottom:18px}
-.hero p{font-size:17px;line-height:1.6;max-width:550px}
-.btn{display:inline-block;background:#52dfc0;color:#102b46;padding:13px 22px;border-radius:8px;text-decoration:none;font-weight:bold;margin-top:25px}
-section{padding:45px 7%}
-h2{margin-bottom:20px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{background:white;padding:24px;border-radius:14px;box-shadow:0 4px 16px #102b4610}
-.card h3{margin:12px 0}
-.card p{color:#627087;line-height:1.5}
-.icon{font-size:32px}
-footer{text-align:center;background:#102b46;color:white;padding:22px}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #08172b;
+  color: #eaf2ff;
+  line-height: 1.6;
+}
+
+header {
+  background: #0c1e35;
+  padding: 15px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #263b56;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #e4ebf5;
+}
+
+.logo img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+nav {
+  display: flex;
+  gap: 23px;
+}
+
+nav a {
+  color: #d4deeb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover { color: #56baff; }
+
+.hero {
+  padding: 100px 7%;
+  background:
+    radial-gradient(ellipse at 85% 20%, #164b77 0%, transparent 45%),
+    linear-gradient(120deg, #0b1c32, #102e4e);
+}
+
+.hero-content { max-width: 750px; }
+
+.tag {
+  display: inline-block;
+  color: #76caff;
+  border: 1px solid #3778a8;
+  padding: 7px 15px;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 22px;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 60px);
+  line-height: 1.15;
+  margin-bottom: 22px;
+  color: white;
+}
+
+.hero h1 span { color: #69bfff; }
+
+.hero p {
+  font-size: 17px;
+  color: #c1cede;
+  max-width: 600px;
+}
+
+.btn {
+  display: inline-block;
+  background: linear-gradient(120deg, #58b8ff, #b5d7f5);
+  color: #08172b;
+  padding: 14px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 28px;
+  transition: .3s;
+}
+
+.btn:hover { transform: translateY(-3px); }
+
+section { padding: 75px 7%; }
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.section-heading h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.section-heading p { color: #a9bbd0; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  background: #10243c;
+  padding: 28px;
+  border: 1px solid #263f5c;
+  border-radius: 15px;
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  border-color: #65baff;
+}
+
+.icon { font-size: 35px; }
+
+.card h3 {
+  margin: 15px 0 8px;
+  color: #e9f3ff;
+}
+
+.card p { color: #a9bbd0; }
+
+.report-section {
+  background: #0d2037;
+}
+
+.form-box {
+  max-width: 650px;
+  margin: auto;
+  background: #122943;
+  padding: 30px;
+  border: 1px solid #34516f;
+  border-radius: 16px;
+}
+
+label {
+  display: block;
+  margin: 14px 0 7px;
+  color: #dce9f7;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #3a5673;
+  background: #091a2e;
+  color: white;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #56baff;
+}
+
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(120deg, #58b8ff, #b5d7f5);
+  color: #08172b;
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 22px;
+  cursor: pointer;
+}
+
+#message {
+  margin-top: 15px;
+  color: #7de5bd;
+  text-align: center;
+}
+
+.about {
+  text-align: center;
+  max-width: 850px;
+  margin: auto;
+}
+
+.about p {
+  color: #b3c4d8;
+  font-size: 16px;
+}
+
+footer {
+  background: #050f1e;
+  padding: 30px 7%;
+  text-align: center;
+  border-top: 1px solid #263b56;
+  color: #9eafc3;
+}
+
+footer strong { color: #72c3ff; }
+
+@media(max-width:600px) {
+  header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  nav {
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav a { font-size: 13px; }
+
+  .hero { padding: 75px 7%; }
+
+  section { padding: 55px 7%; }
+
+  .form-box { padding: 20px; }
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<div class="logo">🌐 CivicPulse</div>
-<nav><a href="#home">Home</a><a href="#features">Features</a><a href="#about">About</a></nav>
+  <div class="logo">
+    <img src="Veyora-logo.png" alt="VEYORA Logo">
+    <span>VEYORA</span>
+  </div>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#features">Features</a>
+    <a href="#report">Report</a>
+    <a href="#about">About</a>
+  </nav>
 </header>
+
+<main>
+
 <div class="hero" id="home">
-<h1>Let's Build a Better City Together.</h1>
-<p>Report civic problems, raise your voice and help make your neighbourhood cleaner, safer and smarter.</p>
-<a href="#features" class="btn">Explore Platform →</a>
+  <div class="hero-content">
+    <div class="tag">SMART CITY • SMART FUTURE</div>
+
+    <h1>Your City.<br>
+    Your <span>Voice.</span><br>
+    Your Future.</h1>
+
+    <p>
+      A smarter way to report civic problems.
+      Raise your voice, share local issues and
+      help build cleaner, safer and better cities.
+    </p>
+
+    <a href="#report" class="btn">Report a Problem →</a>
+  </div>
 </div>
+
 <section id="features">
-<h2>What can you report?</h2>
-<div class="cards">
-<div class="card"><div class="icon">🕳️</div><h3>Road Problems</h3><p>Report potholes and damaged roads.</p></div>
-<div class="card"><div class="icon">🗑️</div><h3>Garbage Issues</h3><p>Help keep your neighbourhood clean.</p></div>
-<div class="card"><div class="icon">💡</div><h3>Street Lights</h3><p>Report broken street lights.</p></div>
-<div class="card"><div class="icon">🚰</div><h3>Water Problems</h3><p>Report water supply issues.</p></div>
-</div>
+  <div class="section-heading">
+    <h2>What Can You Report?</h2>
+    <p>Your small report can make a big difference.</p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <div class="icon">🛣️</div>
+      <h3>Road Problems</h3>
+      <p>Report potholes, damaged roads and other road issues.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🗑️</div>
+      <h3>Garbage Issues</h3>
+      <p>Help keep your neighbourhood clean and healthy.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">💡</div>
+      <h3>Street Lights</h3>
+      <p>Report damaged street lights and dark public areas.</p>
+    </div>
+
+    <div class="card">
+      <div class="icon">🚰</div>
+      <h3>Water Problems</h3>
+      <p>Report water supply and leakage problems.</p>
+    </div>
+
+  </div>
 </section>
+
+<section class="report-section" id="report">
+  <div class="section-heading">
+    <h2>Report a Problem</h2>
+    <p>Help us make your city better.</p>
+  </div>
+
+  <div class="form-box">
+    <form id="reportForm">
+
+      <label for="name">Your Name</label>
+      <input id="name" type="text"
+        placeholder="Enter your name" required>
+
+      <label for="category">Problem Category</label>
+      <select id="category" required>
+        <option value="">Choose problem</option>
+        <option>Road Problem</option>
+        <option>Garbage</option>
+        <option>Street Light</option>
+        <option>Water Problem</option>
+        <option>Other</option>
+      </select>
+
+      <label for="description">Describe the Problem</label>
+      <textarea id="description"
+        placeholder="Explain the issue..." required></textarea>
+
+      <label for="photo">Upload Photo (Optional)</label>
+      <input id="photo" type="file" accept="image/*">
+
+      <button type="submit" class="submit-btn">
+        Submit Report →
+      </button>
+
+      <p id="message" role="status"></p>
+    </form>
+  </div>
+</section>
+
 <section id="about">
-<h2>About CivicPulse</h2>
-<p>A community-driven platform to report local problems and support smarter cities.</p>
+  <div class="about">
+    <div class="section-heading">
+      <h2>About VEYORA</h2>
+    </div>
+
+    <p>
+      VEYORA is a community-driven smart city platform
+      designed to connect citizens with urban development.
+      Our mission is to encourage people to report local
+      problems and contribute towards cleaner, safer
+      and smarter communities.
+    </p>
+  </div>
 </section>
-<footer>© 2026 CivicPulse | Built for a Better Tomorrow</footer>
-</body>
 
-<section id="report" style="padding:45px 7%;background:#eaf2f7">
-  <h2>📢 Report a Problem</h2>
-  <p style="margin-bottom:20px">Help us make your city better.</p>
+</main>
 
-  <form id="reportForm" style="background:white;padding:22px;border-radius:14px;max-width:600px">
-    <label>Your Name</label>
-    <input required type="text" placeholder="Enter your name" style="width:100%;padding:12px;margin:10px 0 18px">
-
-    <label>Problem Category</label>
-    <select required style="width:100%;padding:12px;margin:10px 0 18px">
-      <option value="">Choose problem</option>
-      <option>Road Problem</option>
-      <option>Garbage</option>
-      <option>Street Light</option>
-      <option>Water Problem</option>
-      <option>Other</option>
-    </select>
-
-    <label>Describe the problem</label>
-    <textarea required placeholder="Explain the issue..." style="width:100%;padding:12px;margin:10px 0 18px"></textarea>
-
-    <label>Upload Photo</label>
-    <input type="file" accept="image/*" style="width:100%;margin:12px 0 20px">
-
-    <button type="submit" style="background:#176b78;color:white;padding:14px 22px;border:0;border-radius:8px;width:100%;font-size:16px">
-      Submit Report
-    </button>
-    <p id="message" style="margin-top:15px"></p>
-  </form>
-</section>
+<footer>
+  <strong>VEYORA</strong>
+  <p>Your City. Your Voice. Your Future.</p>
+  <p>© 2026 VEYORA. Built for a Better Tomorrow.</p>
+</footer>
 
 <script>
-document.getElementById("reportForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  document.getElementById("message").textContent =
-  "Thank you! Your report form is working. Database connection will be added next.";
-  this.reset();
-});
+document.getElementById("reportForm").addEventListener(
+  "submit", function(e) {
+    e.preventDefault();
+
+    document.getElementById("message").textContent =
+      "Thank you! Your form demo is working. Database connection is required to save reports.";
+
+    this.reset();
+  }
+);
 </script>
+
+</body>
 </html>

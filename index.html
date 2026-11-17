@@ -5,51 +5,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#071a35">
-<meta name="description" content="VEYORA - Your City. Your Voice. Your Future. Report civic problems and track complaints.">
+<meta name="description" content="VEYORA - Your City. Your Voice. Your Future.">
 <title>VEYORA | Smart City Platform</title>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
+:root{--navy:#071a35;--blue:#1769d2;--ink:#14233d;--muted:#65748b;--bg:#f4f7fb}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif;background:#f4f7fb;color:#14233d}
-header{background:#071a35;color:white;padding:16px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden}
+header{background:var(--navy);color:white;padding:16px 7%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;position:sticky;top:0;z-index:20}
 .brand{display:flex;align-items:center;gap:10px}
-.brand img{width:48px;height:48px;object-fit:contain}
+.brand img{width:48px;height:48px;object-fit:contain;animation:float 4s infinite}
 .brand h2{letter-spacing:3px;color:#dce8ff}
 nav{display:flex;gap:18px;flex-wrap:wrap}
 nav a{color:white;text-decoration:none;font-size:14px}
 nav a:hover{color:#76b5ff}
-button{border:0;border-radius:8px;padding:12px 18px;background:#1769d2;color:white;font-weight:bold;cursor:pointer}
-button:hover{background:#0d4fa8}
+button{border:0;border-radius:8px;padding:12px 18px;background:var(--blue);color:white;font-weight:bold;cursor:pointer;transition:.3s}
+button:hover{background:#0d4fa8;transform:translateY(-3px);box-shadow:0 8px 22px #1769d255}
+button:disabled{opacity:.6;cursor:not-allowed}
 .secondary{background:#e5edf8;color:#12345b}
-.hero{padding:75px 8%;background:linear-gradient(120deg,#071a35,#123e70);color:white;text-align:center}
+.hero{padding:75px 8%;background:linear-gradient(-45deg,#06152e,#123e70,#071a35,#174d83);background-size:400% 400%;animation:aurora 12s ease infinite;color:white;text-align:center;position:relative;overflow:hidden}
 .hero h1{font-size:clamp(34px,7vw,58px);margin-bottom:18px}
-.hero p{font-size:18px;color:#d9e7fa;margin-bottom:25px}
+.hero p{font-size:18px;color:#d9e7fa;margin-bottom:25px;line-height:1.6}
 .hero .tagline{color:#9fcaff;letter-spacing:2px;margin-bottom:14px}
+.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.hero-actions a{text-decoration:none}
 section{padding:55px 7%}
 .heading{text-align:center;font-size:30px;margin-bottom:12px;color:#102c50}
-.sub{text-align:center;color:#65748b;margin-bottom:30px}
+.sub{text-align:center;color:var(--muted);margin:0 auto 30px;max-width:650px;line-height:1.6}
 .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px}
-.feature,.panel{background:white;padding:24px;border-radius:15px;box-shadow:0 5px 22px #14233d12}
+.feature,.formbox{background:white;padding:24px;border-radius:15px;box-shadow:0 5px 22px #14233d12}
+.feature{border:1px solid #e2ebf7;transition:.4s}
+.feature:hover{transform:translateY(-10px);box-shadow:0 18px 35px #1769d233}
 .feature h3{margin:12px 0;color:#123d70}
-.feature p{color:#65748b;line-height:1.5}
+.feature p{color:var(--muted);line-height:1.5}
 .symbol{font-size:34px}
-.formbox{max-width:700px;margin:auto;background:white;padding:25px;border-radius:16px;box-shadow:0 5px 25px #14233d14}
+.formbox{max-width:760px;margin:auto}
 label{display:block;font-weight:bold;margin:14px 0 7px}
 input,select,textarea{width:100%;padding:13px;border:1px solid #ccd7e5;border-radius:8px;font-size:15px;background:white}
 textarea{min-height:100px;resize:vertical}
-.formbox button{margin-top:17px;width:100%}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#3989ed;box-shadow:0 0 0 4px #3989ed20}
+.formbox form>button{margin-top:17px;width:100%}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.result{margin-top:18px;padding:15px;background:#eaf5ff;border-radius:10px;display:none;overflow-wrap:anywhere}
-.status{display:inline-block;padding:5px 10px;border-radius:20px;background:#fff1ce;color:#805400;font-size:12px;font-weight:bold}
+.result{margin-top:18px;padding:15px;background:#eaf5ff;border-radius:10px;display:none;overflow-wrap:anywhere;line-height:1.6}
+.result.error{background:#fff0ef;color:#9b2119}
+.result.success{background:#eaf8f2;color:#087443}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.actions button{margin-top:0}
+.small{font-size:13px;color:#68778c;line-height:1.5;margin-top:9px}
+.hidden{display:none!important}
+.status{display:inline-block;padding:5px 10px;border-radius:20px;background:#fff1ce;color:#805400;font-size:12px;font-weight:bold}
+.status.resolved{background:#dff7e9;color:#087443}
+.status.progress{background:#e4efff;color:#174f9c}
+#mapFrame{width:100%;height:300px;border:0;border-radius:12px;margin-top:15px}
+#preview{max-width:180px;max-height:150px;object-fit:cover;margin-top:12px;border-radius:10px}
+footer{background:var(--navy);color:#c9d9ee;text-align:center;padding:28px;line-height:2}
+footer strong{color:white;letter-spacing:3px}
 .complaint{background:white;padding:17px;border-radius:12px;margin:12px 0;box-shadow:0 3px 12px #14233d10}
 .complaint p{margin:7px 0;color:#58677d}
 .complaint img{max-width:150px;max-height:120px;object-fit:cover;border-radius:8px;margin-top:8px}
-#mapFrame{width:100%;height:300px;border:0;border-radius:12px;margin-top:15px}
-footer{background:#071a35;color:#c9d9ee;text-align:center;padding:28px}
-footer strong{color:white;letter-spacing:3px}
-.hidden{display:none!important}
-.small{font-size:13px;color:#68778c;line-height:1.5}
+.reveal{opacity:0;transform:translateY(25px);transition:.8s}
+.reveal.active{opacity:1;transform:translateY(0)}
+@keyframes aurora{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @media(max-width:600px){
  header{padding:14px 5%}
  nav{gap:12px}
@@ -58,313 +76,11 @@ footer strong{color:white;letter-spacing:3px}
  .grid2{grid-template-columns:1fr}
  .hero{padding:60px 5%}
 }
-
-/* ===== VEYORA FUTURISTIC ANIMATIONS ===== */
-
-html {
-  scroll-behavior: smooth;
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
-
-body {
-  overflow-x: hidden;
-}
-
-/* Animated hero background */
-.hero {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: linear-gradient(
-    -45deg,
-    #06152e,
-    #123e70,
-    #071a35,
-    #174d83
-  );
-  background-size: 400% 400%;
-  animation: aurora 12s ease infinite;
-}
-
-.hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(65px);
-  pointer-events: none;
-  z-index: -1;
-}
-
-.hero::before {
-  width: 230px;
-  height: 230px;
-  background: #328cff;
-  opacity: .35;
-  top: -60px;
-  left: -60px;
-  animation: orbMove 8s ease-in-out infinite alternate;
-}
-
-.hero::after {
-  width: 260px;
-  height: 260px;
-  background: #9ccaff;
-  opacity: .2;
-  bottom: -100px;
-  right: -60px;
-  animation: orbMove 10s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes aurora {
-  0%,100% {background-position: 0% 50%}
-  50% {background-position: 100% 50%}
-}
-
-@keyframes orbMove {
-  from {transform: translate(0,0) scale(1)}
-  to {transform: translate(65px,35px) scale(1.3)}
-}
-
-/* Floating logo */
-.brand img {
-  animation: logoFloat 4s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px #6daeff);
-}
-
-@keyframes logoFloat {
-  0%,100% {transform: translateY(0)}
-  50% {transform: translateY(-7px)}
-}
-
-/* Hero entrance */
-.hero h1 {
-  animation: heroEnter 1s ease both;
-  text-shadow: 0 0 25px #5daaff55;
-}
-
-.hero p {
-  animation: heroEnter 1.3s ease both;
-}
-
-.hero button {
-  animation: heroEnter 1.5s ease both;
-}
-
-@keyframes heroEnter {
-  from {opacity:0;transform:translateY(25px)}
-  to {opacity:1;transform:translateY(0)}
-}
-
-/* Premium feature cards */
-.feature {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #e2ebf7;
-  transition: transform .4s ease, box-shadow .4s ease;
-}
-
-.feature::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 80%;
-  height: 100%;
-  background: linear-gradient(
-    110deg,
-    transparent,
-    #ffffffaa,
-    transparent
-  );
-  transition: left .7s ease;
-}
-
-.feature:hover::before {
-  left: 140%;
-}
-
-.feature:hover {
-  transform: translateY(-12px) scale(1.025);
-  box-shadow: 0 18px 35px #1769d233;
-  border-color: #78b5ff;
-}
-
-.feature .symbol {
-  display: inline-block;
-  transition: transform .4s ease;
-}
-
-.feature:hover .symbol {
-  transform: scale(1.25) rotate(-8deg);
-}
-
-/* Shimmer buttons */
-button {
-  position: relative;
-  overflow: hidden;
-  transition: transform .25s ease, box-shadow .25s ease;
-}
-
-button::after {
-  content: "";
-  position: absolute;
-  top: -50%;
-  left: -100%;
-  width: 60%;
-  height: 200%;
-  transform: rotate(25deg);
-  background: #ffffff55;
-  transition: left .6s ease;
-}
-
-button:hover::after {
-  left: 150%;
-}
-
-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 22px #1769d255;
-}
-
-/* Navigation underline */
-nav a {
-  position: relative;
-  transition: color .3s ease;
-}
-
-nav a::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #80bdff;
-  transition: width .3s ease;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-/* Form focus glow */
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  border-color: #3989ed;
-  box-shadow: 0 0 0 4px #3989ed20;
-  transition: .25s ease;
-}
-
-/* Section appearance */
-.heading {
-  animation: headingGlow 4s ease-in-out infinite;
-}
-
-@keyframes headingGlow {
-  0%,100% {text-shadow: 0 0 0 transparent}
-  50% {text-shadow: 0 0 16px #3989ed33}
-}
-
-/* Footer glow */
-footer strong {
-  text-shadow: 0 0 15px #76b5ff88;
-}
-
-/* Respect reduced-motion settings */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
-  }
-}
-/* VEYORA ADVANCED ANIMATIONS */
-
-html {
-  scroll-behavior: smooth;
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(45px);
-  transition: opacity .8s ease, transform .8s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.grid2 > div,
-.feature-card,
-.card {
-  transition: transform .4s ease, box-shadow .4s ease;
-}
-
-.grid2 > div:hover,
-.feature-card:hover,
-.card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 18px 40px rgba(0, 100, 255, .2);
-}
-
-button, .btn {
-  transition: all .3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-button:hover, .btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 120, 255, .35);
-}
-
-section {
-  animation: sectionAppear 1s ease both;
-}
-
-@keyframes sectionAppear {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes floatParticle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-18px); }
-}
-
-.logo {
-  animation: floatParticle 4s ease-in-out infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-    scroll-behavior: auto !important;
-  }
 </style>
 </head>
-<script>
-const revealElements = document.querySelectorAll(
-  'section, .grid2 > div, h2'
-);
-
-revealElements.forEach(el => el.classList.add('reveal'));
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('active');
-    }
-  });
-}, { threshold: 0.12 });
-
-revealElements.forEach(el => observer.observe(el));
-</script>
 <body>
 
 <header>
@@ -375,6 +91,7 @@ revealElements.forEach(el => observer.observe(el));
  <nav>
   <a href="#home">Home</a>
   <a href="#features">Features</a>
+  <a href="#account">Account</a>
   <a href="#report">Report</a>
   <a href="#track">Track</a>
   <a href="#admin">Admin</a>
@@ -386,8 +103,10 @@ revealElements.forEach(el => observer.observe(el));
  <p class="tagline">YOUR CITY. YOUR VOICE. YOUR FUTURE.</p>
  <h1>Let's Build a Better City.</h1>
  <p>Report civic problems, share your concerns and help make your city smarter.</p>
- <a href="#report"><button>Report a Problem</button></a>
- <a href="#track"><button class="secondary">Track Complaint</button></a>
+ <div class="hero-actions">
+  <a href="#report"><button>Report a Problem</button></a>
+  <a href="#track"><button class="secondary">Track Complaint</button></a>
+ </div>
 </section>
 
 <section id="features">
@@ -403,23 +122,23 @@ revealElements.forEach(el => observer.observe(el));
 
 <section id="account">
  <h2 class="heading">User Account</h2>
- <p class="sub">Demo account for this browser only</p>
+ <p class="sub">Create an account or sign in securely.</p>
  <div class="formbox">
   <div id="loggedOut">
    <label>Email</label>
-   <input id="email" type="email" placeholder="Enter your email">
+   <input id="email" type="email" placeholder="Enter your email" autocomplete="email">
    <label>Password</label>
-   <input id="password" type="password" placeholder="Create a password">
+   <input id="password" type="password" minlength="6" placeholder="At least 6 characters">
    <div class="actions">
-    <button onclick="signup()">Sign Up</button>
-    <button class="secondary" onclick="login()">Login</button>
+    <button id="signupButton" type="button">Sign Up</button>
+    <button id="loginButton" class="secondary" type="button">Login</button>
    </div>
   </div>
   <div id="loggedIn" class="hidden">
    <p id="welcome"></p>
-   <button class="secondary" onclick="logout()">Logout</button>
+   <button id="logoutButton" class="secondary" type="button">Logout</button>
   </div>
-  <p class="small" style="margin-top:15px">Demo only: do not use a real or reused password. This is not secure authentication.</p>
+  <p class="small">Email confirmation may be required. Use a password you do not reuse elsewhere.</p>
   <p id="accountMessage" class="result"></p>
  </div>
 </section>
@@ -430,7 +149,7 @@ revealElements.forEach(el => observer.observe(el));
  <div class="formbox">
   <form id="reportForm">
    <div class="grid2">
-    <div><label>Your Name</label><input id="person" required placeholder="Enter your name"></div>
+    <div><label>Your Name</label><input id="person" required maxlength="100" placeholder="Enter your name"></div>
     <div><label>Mobile Number</label><input id="mobile" type="tel" required maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number"></div>
    </div>
    <label>Problem Category</label>
@@ -444,17 +163,18 @@ revealElements.forEach(el => observer.observe(el));
     <option>Other</option>
    </select>
    <label>Location / Address</label>
-   <input id="address" required placeholder="Enter area, street or landmark">
+   <input id="address" required maxlength="300" placeholder="Enter area, street or landmark">
    <div class="actions">
-    <button type="button" class="secondary" onclick="getLocation()">📍 Use My Location</button>
+    <button type="button" class="secondary" id="locationButton">📍 Use My Location</button>
    </div>
-   <p id="locationText" class="small">Location is optional. Your browser will ask permission.</p>
+   <p id="locationText" class="small">GPS location is optional.</p>
    <label>Describe the Problem</label>
-   <textarea id="description" required placeholder="Explain the problem..."></textarea>
+   <textarea id="description" required maxlength="2000" placeholder="Explain the problem..."></textarea>
    <label>Upload Photo (optional)</label>
-   <input id="photo" type="file" accept="image/*">
-   <img id="preview" class="hidden" style="max-width:180px;margin-top:12px;border-radius:10px" alt="Photo preview">
-   <button type="submit">Submit Complaint</button>
+   <input id="photo" type="file" accept="image/jpeg,image/png,image/webp">
+   <img id="preview" class="hidden" alt="Photo preview">
+   <p class="small">Maximum image size: 1.5 MB. Do not upload private documents.</p>
+   <button id="submitButton" type="submit">Submit Complaint</button>
   </form>
   <div id="reportResult" class="result"></div>
  </div>
@@ -462,18 +182,18 @@ revealElements.forEach(el => observer.observe(el));
 
 <section id="track">
  <h2 class="heading">Track Your Complaint</h2>
- <p class="sub">Enter your complaint ID to check its current demo status.</p>
+ <p class="sub">Enter your complaint ID to check its current status.</p>
  <div class="formbox">
   <label>Complaint Tracking ID</label>
-  <input id="trackingId" placeholder="Example: VEY-123456">
-  <button onclick="trackComplaint()">Track Now</button>
+  <input id="trackingId" placeholder="Example: VEY-ABCDEFGH">
+  <button id="trackButton" type="button" style="margin-top:14px">Track Now</button>
   <div id="trackingResult" class="result"></div>
  </div>
 </section>
 
 <section id="map">
  <h2 class="heading">Complaint Location Map</h2>
- <p class="sub">Use your location while submitting a complaint to preview it on the map.</p>
+ <p class="sub">Preview the location selected while submitting a complaint.</p>
  <div class="formbox">
   <p id="mapMessage">No location selected yet.</p>
   <iframe id="mapFrame" title="Map" class="hidden" loading="lazy"></iframe>
@@ -482,13 +202,9 @@ revealElements.forEach(el => observer.observe(el));
 
 <section id="admin">
  <h2 class="heading">Admin Dashboard</h2>
- <p class="sub">Local demo dashboard: complaints saved in this browser.</p>
+ <p class="sub">Authorized staff dashboard.</p>
  <div class="formbox">
-  <button onclick="showAdmin()">Open Dashboard</button>
-  <div id="adminPanel" class="hidden">
-   <h3 style="margin:20px 0">All Complaints</h3>
-   <div id="complaintList"></div>
-  </div>
+  <p style="line-height:1.8;color:#58677d">Admin access is not enabled yet. A separate secure admin role must be configured before complaints and personal details can be viewed or updated.</p>
  </div>
 </section>
 
@@ -506,169 +222,379 @@ revealElements.forEach(el => observer.observe(el));
 </main>
 
 <footer>
-<div style="margin-top:20px;line-height:2">
+ <div style="margin-top:20px;line-height:2">
   <p><strong>Founder:</strong> Ujjwal Tiwari</p>
   <p><strong>Official Email:</strong>
-    <a href="mailto:officialujjwal0007@gmail.com" style="color:#9fcaff">
-      officialujjwal0007@gmail.com
-    </a>
+   <a href="mailto:officialujjwal0007@gmail.com" style="color:#9fcaff">officialujjwal0007@gmail.com</a>
   </p>
-</div>
+ </div>
  <strong>VEYORA</strong>
  <p style="margin-top:10px">Your City. Your Voice. Your Future.</p>
  <p style="margin-top:8px;font-size:12px">© 2026 VEYORA. All rights reserved.</p>
 </footer>
 
 <script>
-const getComplaints=()=>JSON.parse(localStorage.getItem("veyora_complaints")||"[]");
-const saveComplaints=data=>localStorage.setItem("veyora_complaints",JSON.stringify(data));
-let selectedLocation=null;
-let photoData="";
+"use strict";
 
-function showMessage(id,message){
- const el=document.getElementById(id);
- el.style.display="block";
- el.textContent=message;
+/* SUPABASE CONNECTION */
+const SUPABASE_URL = "https://oikkaisptvrhpvxuzeja.supabase.co";
+const SUPABASE_KEY = "sb_publishable_m-7cmnw_iS864dJMzaQosA_98l2dmfO";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+let selectedLocation = null;
+let selectedPhoto = null;
+
+const $ = id => document.getElementById(id);
+
+function showMessage(id, message, type = "info") {
+ const el = $(id);
+ el.textContent = message;
+ el.className = "result" +
+  (type === "error" ? " error" : type === "success" ? " success" : "");
+ el.style.display = "block";
 }
 
-function signup(){
- const email=document.getElementById("email").value.trim().toLowerCase();
- const password=document.getElementById("password").value;
- if(!email||password.length<6){showMessage("accountMessage","Enter a valid email and a password of at least 6 characters.");return}
- localStorage.setItem("veyora_demo_user",JSON.stringify({email,password}));
- showMessage("accountMessage","Demo account created. You can now log in.");
+function makeTrackingId() {
+ const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+ const bytes = new Uint8Array(8);
+ crypto.getRandomValues(bytes);
+ return "VEY-" + Array.from(bytes, b => chars[b % chars.length]).join("");
 }
 
-function login(){
- const email=document.getElementById("email").value.trim().toLowerCase();
- const password=document.getElementById("password").value;
- const user=JSON.parse(localStorage.getItem("veyora_demo_user")||"null");
- if(user&&user.email===email&&user.password===password){
-  localStorage.setItem("veyora_logged_in",email);
-  updateAccount();
-  showMessage("accountMessage","Logged in successfully.");
- }else showMessage("accountMessage","Account not found or password is incorrect. Sign up first.");
+/* AUTHENTICATION */
+async function refreshAccount() {
+ const {data:{session}} = await supabaseClient.auth.getSession();
+ const user = session?.user;
+ $("loggedOut").classList.toggle("hidden",!!user);
+ $("loggedIn").classList.toggle("hidden",!user);
+ $("welcome").textContent = user ? "Logged in as: " + user.email : "";
 }
 
-function logout(){
- localStorage.removeItem("veyora_logged_in");
- updateAccount();
-}
+$("signupButton").addEventListener("click",async()=>{
+ const email = $("email").value.trim();
+ const password = $("password").value;
 
-function updateAccount(){
- const email=localStorage.getItem("veyora_logged_in");
- document.getElementById("loggedOut").classList.toggle("hidden",!!email);
- document.getElementById("loggedIn").classList.toggle("hidden",!email);
- document.getElementById("welcome").textContent=email?"Logged in as: "+email:"";
-}
-updateAccount();
+ if(!email || password.length < 6){
+  showMessage("accountMessage","Enter a valid email and password of at least 6 characters.","error");
+  return;
+ }
 
-document.getElementById("photo").addEventListener("change",function(){
- const file=this.files[0];
- if(!file){photoData="";return}
- if(file.size>1500000){alert("Please choose an image smaller than 1.5 MB.");this.value="";return}
- const reader=new FileReader();
- reader.onload=e=>{
-  photoData=e.target.result;
-  const preview=document.getElementById("preview");
-  preview.src=photoData;
-  preview.classList.remove("hidden");
- };
- reader.readAsDataURL(file);
+ $("signupButton").disabled = true;
+
+ try{
+  const {data,error} = await supabaseClient.auth.signUp({email,password});
+  if(error) throw error;
+
+  showMessage("accountMessage",
+   data.session
+    ? "Account created and logged in successfully."
+    : "Account created. Check your email for confirmation, then log in.",
+   "success");
+
+  await refreshAccount();
+ }catch(error){
+  showMessage("accountMessage",error.message,"error");
+ }finally{
+  $("signupButton").disabled = false;
+ }
 });
 
-function getLocation(){
- if(!navigator.geolocation){alert("Location is not supported by this browser.");return}
+$("loginButton").addEventListener("click",async()=>{
+ const email = $("email").value.trim();
+ const password = $("password").value;
+
+ if(!email || !password){
+  showMessage("accountMessage","Enter your email and password.","error");
+  return;
+ }
+
+ $("loginButton").disabled = true;
+
+ try{
+  const {error} = await supabaseClient.auth.signInWithPassword({email,password});
+  if(error) throw error;
+
+  showMessage("accountMessage","Login successful.","success");
+  await refreshAccount();
+ }catch(error){
+  showMessage("accountMessage",error.message,"error");
+ }finally{
+  $("loginButton").disabled = false;
+ }
+});
+
+$("logoutButton").addEventListener("click",async()=>{
+ const {error} = await supabaseClient.auth.signOut();
+ if(error) showMessage("accountMessage",error.message,"error");
+ else{
+  showMessage("accountMessage","Logged out successfully.","success");
+  await refreshAccount();
+ }
+});
+
+supabaseClient.auth.onAuthStateChange(()=>refreshAccount());
+refreshAccount();
+
+/* PHOTO PREVIEW */
+$("photo").addEventListener("change",event=>{
+ const file = event.target.files?.[0];
+ selectedPhoto = null;
+ $("preview").classList.add("hidden");
+
+ if(!file) return;
+
+ if(!["image/jpeg","image/png","image/webp"].includes(file.type)){
+  showMessage("reportResult","Choose a JPG, PNG or WEBP image.","error");
+  event.target.value = "";
+  return;
+ }
+
+ if(file.size > 1500000){
+  showMessage("reportResult","Image must be smaller than 1.5 MB.","error");
+  event.target.value = "";
+  return;
+ }
+
+ selectedPhoto = file;
+ $("preview").src = URL.createObjectURL(file);
+ $("preview").classList.remove("hidden");
+});
+
+/* GPS LOCATION */
+$("locationButton").addEventListener("click",()=>{
+ if(!navigator.geolocation){
+  showMessage("reportResult","Location is not supported by this browser.","error");
+  return;
+ }
+
+ $("locationButton").disabled = true;
+ $("locationText").textContent = "Getting your location...";
+
  navigator.geolocation.getCurrentPosition(position=>{
-  selectedLocation={lat:position.coords.latitude,lon:position.coords.longitude};
-  document.getElementById("locationText").textContent="Location selected successfully.";
-  document.getElementById("mapMessage").textContent="Selected location: "+selectedLocation.lat.toFixed(5)+", "+selectedLocation.lon.toFixed(5);
-  const map=document.getElementById("mapFrame");
-  map.src="https://www.openstreetmap.org/export/embed.html?bbox="+(selectedLocation.lon-0.01)+"%2C"+(selectedLocation.lat-0.01)+"%2C"+(selectedLocation.lon+0.01)+"%2C"+(selectedLocation.lat+0.01)+"&layer=mapnik&marker="+selectedLocation.lat+"%2C"+selectedLocation.lon;
-  map.classList.remove("hidden");
- },()=>alert("Location permission was not granted. You can enter the address manually."));
-}
+  selectedLocation = {
+   lat:position.coords.latitude,
+   lon:position.coords.longitude
+  };
 
-document.getElementById("reportForm").addEventListener("submit",function(e){
- e.preventDefault();
- const complaint={
-  id:"VEY-"+Math.floor(100000+Math.random()*900000),
-  name:document.getElementById("person").value.trim(),
-  mobile:document.getElementById("mobile").value.trim(),
-  category:document.getElementById("category").value,
-  address:document.getElementById("address").value.trim(),
-  description:document.getElementById("description").value.trim(),
-  photo:photoData,
-  location:selectedLocation,
-  status:"Submitted",
-  date:new Date().toLocaleString()
- };
- const complaints=getComplaints();
- complaints.push(complaint);
- saveComplaints(complaints);
- const result=document.getElementById("reportResult");
- result.style.display="block";
- result.innerHTML="<strong>Complaint submitted!</strong><br>Your Tracking ID: <strong>"+complaint.id+"</strong><br>Please save this ID to track your complaint.";
- document.getElementById("trackingId").value=complaint.id;
- this.reset();
- photoData="";
- selectedLocation=null;
- document.getElementById("preview").classList.add("hidden");
- document.getElementById("locationText").textContent="Location is optional. Your browser will ask permission.";
+  $("locationText").textContent = "Location selected successfully.";
+
+  const lat = selectedLocation.lat;
+  const lon = selectedLocation.lon;
+
+  $("mapMessage").textContent =
+   "Selected location: " + lat.toFixed(5) + ", " + lon.toFixed(5);
+
+  $("mapFrame").src =
+   "https://www.openstreetmap.org/export/embed.html?bbox=" +
+   (lon-.01)+"%2C"+(lat-.01)+"%2C"+
+   (lon+.01)+"%2C"+(lat+.01)+
+   "&layer=mapnik&marker="+lat+"%2C"+lon;
+
+  $("mapFrame").classList.remove("hidden");
+  $("locationButton").disabled = false;
+
+ },()=>{
+  $("locationText").textContent =
+   "Location permission not granted. Enter address manually.";
+  $("locationButton").disabled = false;
+ },{enableHighAccuracy:true,timeout:12000});
 });
 
-function trackComplaint(){
- const id=document.getElementById("trackingId").value.trim().toUpperCase();
- const complaint=getComplaints().find(c=>c.id===id);
- const result=document.getElementById("trackingResult");
- result.style.display="block";
- if(!complaint){result.textContent="No complaint found. Please check your Tracking ID.";return}
- result.innerHTML="<strong>"+complaint.id+"</strong><br>Category: "+complaint.category+"<br>Address: "+complaint.address+"<br>Status: <span class='status'>"+complaint.status+"</span><br>Date: "+complaint.date;
-}
+/* SUBMIT COMPLAINT */
+$("reportForm").addEventListener("submit",async event=>{
+ event.preventDefault();
 
-function showAdmin(){
- const panel=document.getElementById("adminPanel");
- panel.classList.toggle("hidden");
- if(!panel.classList.contains("hidden"))renderAdmin();
-}
+ const name = $("person").value.trim();
+ const phone = $("mobile").value.trim();
+ const category = $("category").value;
+ const address = $("address").value.trim();
+ const description = $("description").value.trim();
 
-function renderAdmin(){
- const list=document.getElementById("complaintList");
- const complaints=getComplaints();
- if(!complaints.length){list.textContent="No complaints submitted in this browser yet.";return}
- list.innerHTML="";
- complaints.slice().reverse().forEach(c=>{
-  const item=document.createElement("div");
-  item.className="complaint";
-  const title=document.createElement("h3");
-  title.textContent=c.id+" — "+c.category;
-  const details=document.createElement("p");
-  details.textContent=c.name+" | "+c.address+" | "+c.date;
-  const desc=document.createElement("p");
-  desc.textContent=c.description;
-  const status=document.createElement("p");
-  status.textContent="Status: "+c.status;
-  const select=document.createElement("select");
-  ["Submitted","In Progress","Resolved"].forEach(s=>{
-   const option=document.createElement("option");
-   option.value=s;option.textContent=s;
-   if(c.status===s)option.selected=true;
-   select.appendChild(option);
-  });
-  select.addEventListener("change",()=>{
-   const all=getComplaints();
-   const target=all.find(x=>x.id===c.id);
-   if(target){target.status=select.value;saveComplaints(all);renderAdmin()}
-  });
-  item.append(title,details,desc,status,select);
-  if(c.photo){
-   const img=document.createElement("img");
-   img.src=c.photo;img.alt="Complaint photo";
-   item.appendChild(img);
+ if(!/^[0-9]{10}$/.test(phone)){
+  showMessage("reportResult","Enter a valid 10-digit mobile number.","error");
+  return;
+ }
+
+ if(name.length<2 || !category || address.length<2 || description.length<5){
+  showMessage("reportResult","Please complete all required fields.","error");
+  return;
+ }
+
+ const button = $("submitButton");
+ button.disabled = true;
+ button.textContent = "Submitting...";
+
+ const trackingId = makeTrackingId();
+
+ try{
+  let imageUrl = null;
+
+  /* UPLOAD PHOTO */
+  if(selectedPhoto){
+   const extension = selectedPhoto.type==="image/png" ? "png" :
+    selectedPhoto.type==="image/webp" ? "webp" : "jpg";
+
+   const filePath = trackingId + "/" + crypto.randomUUID() + "." + extension;
+
+   const {error:uploadError} = await supabaseClient.storage
+    .from("report-photos")
+    .upload(filePath,selectedPhoto,{
+     contentType:selectedPhoto.type,
+     upsert:false
+    });
+
+   if(uploadError) throw new Error("Photo upload failed: "+uploadError.message);
+
+   const {data} = supabaseClient.storage
+    .from("report-photos")
+    .getPublicUrl(filePath);
+
+   imageUrl = data.publicUrl;
   }
-  list.appendChild(item);
- });
-}
+
+  const gps = selectedLocation
+   ? "GPS: "+selectedLocation.lat+", "+selectedLocation.lon
+   : "";
+
+  const report = {
+   tracking_id:trackingId,
+   name:name,
+   phone:phone,
+   category:category,
+   description:description,
+   issue:category+": "+description,
+   location:[address,gps].filter(Boolean).join(" | "),
+   image_url:imageUrl,
+   status:"Submitted"
+  };
+
+  const {error} = await supabaseClient
+   .from("reports")
+   .insert([report]);
+
+  if(error) throw error;
+
+  showMessage(
+   "reportResult",
+   "Complaint submitted successfully! Your Tracking ID: "+trackingId+
+   ". Please save this ID.",
+   "success"
+  );
+
+  $("trackingId").value = trackingId;
+  $("reportForm").reset();
+
+  selectedPhoto = null;
+  selectedLocation = null;
+
+  $("preview").removeAttribute("src");
+  $("preview").classList.add("hidden");
+  $("locationText").textContent = "GPS location is optional.";
+  $("mapMessage").textContent = "No location selected yet.";
+  $("mapFrame").classList.add("hidden");
+  $("mapFrame").removeAttribute("src");
+
+ }catch(error){
+  showMessage("reportResult",error.message,"error");
+ }finally{
+  button.disabled = false;
+  button.textContent = "Submit Complaint";
+ }
+});
+
+/* TRACK COMPLAINT */
+$("trackButton").addEventListener("click",async()=>{
+ const id = $("trackingId").value.trim().toUpperCase();
+
+ if(!/^VEY-[A-Z0-9]{8}$/.test(id)){
+  showMessage("trackingResult","Enter a valid Tracking ID, e.g. VEY-AB23CD45.","error");
+  return;
+ }
+
+ const button = $("trackButton");
+ button.disabled = true;
+ button.textContent = "Checking...";
+
+ try{
+  const {data,error} = await supabaseClient.rpc(
+   "track_report",
+   {p_tracking_id:id}
+  );
+
+  if(error) throw error;
+
+  const report = Array.isArray(data) ? data[0] : data;
+
+  if(!report){
+   showMessage("trackingResult","No complaint found. Check your Tracking ID.","error");
+   return;
+  }
+
+  const box = $("trackingResult");
+  box.replaceChildren();
+
+  const heading = document.createElement("strong");
+  heading.textContent = report.tracking_id;
+
+  const category = document.createElement("p");
+  category.textContent = "Category: "+report.category;
+
+  const address = document.createElement("p");
+  address.textContent = "Location: "+(report.location||"Not provided");
+
+  const status = document.createElement("p");
+  status.textContent = "Status: "+report.status;
+
+  const badge = document.createElement("span");
+  badge.className = "status";
+
+  if(report.status==="Resolved") badge.classList.add("resolved");
+  if(report.status==="In Progress") badge.classList.add("progress");
+
+  badge.textContent = report.status;
+  status.append(" ",badge);
+
+  const date = document.createElement("p");
+  date.textContent = "Submitted: "+new Date(report.created_at).toLocaleString();
+
+  box.append(heading,category,address,status,date);
+  box.className = "result success";
+  box.style.display = "block";
+
+ }catch(error){
+  showMessage("trackingResult",error.message,"error");
+ }finally{
+  button.disabled = false;
+  button.textContent = "Track Now";
+ }
+});
+
+/* REVEAL ANIMATIONS */
+document.addEventListener("DOMContentLoaded",()=>{
+ const elements = document.querySelectorAll("section,.feature");
+
+ if(!("IntersectionObserver" in window)){
+  elements.forEach(el=>el.classList.add("active"));
+  return;
+ }
+
+ elements.forEach(el=>el.classList.add("reveal"));
+
+ const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    entry.target.classList.add("active");
+    observer.unobserve(entry.target);
+   }
+  });
+ },{threshold:.08});
+
+ elements.forEach(el=>observer.observe(el));
+});
 </script>
 </body>
 </html>
